@@ -14,6 +14,7 @@
 ```
 
 ### OR with credential wrapper:
+
 ```json
 {
   "credential": {
@@ -26,6 +27,7 @@
 ```
 
 ### Success Response (201)
+
 ```json
 {
   "success": true,
@@ -38,18 +40,17 @@
 ```
 
 ### Validation Error Response (400)
+
 ```json
 {
   "success": false,
   "message": "Validation error",
-  "errors": [
-    "\"googleId\" is required",
-    "\"email\" is required"
-  ]
+  "errors": ["\"googleId\" is required", "\"email\" is required"]
 }
 ```
 
 ### Issues Fixed:
+
 ✅ Fixed validate.mid.js - changed `err` to `error`
 ✅ Created auth.validator.js with proper Joi schema
 ✅ Added debugging logs to track data flow
@@ -59,7 +60,9 @@
 ✅ Added proper route prefix `/api/auth`
 
 ### Debugging Tips:
+
 The controller now logs:
+
 - 📨 Incoming request body
 - 📦 Extracted data
 - ❌ Missing required fields (if any)
