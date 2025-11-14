@@ -1,10 +1,10 @@
 {
-  "name": "gateway",
+  "name": "blog-service",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx nodemon src/index.js",
+    "start": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,10 +16,10 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
-    "fast-gateway": "^4.2.0",
-    "http-proxy-middleware": "^3.0.5",
+    "ioredis": "^5.8.2",
     "jsonwebtoken": "^9.0.2",
-    "morgan": "^1.10.1",
+    "kafkajs": "^2.2.4",
+    "mongoose": "^8.19.3",
     "nodemon": "^3.1.11"
   }
 }

@@ -4,17 +4,8 @@
 
 */
 
-import { createGateway } from "./app.js";
+import server from "./app.js";
 import dotenv from "dotenv";
-import { createServer } from "node:http";
-import { errorMiddleware } from "./middlewares/error.middleware.js";
-
-const app = createGateway();
-app.get("/", (req, res) => {
-  res.send("working fine");
-});
-app.use(errorMiddleware);
-const server = createServer(app);
 dotenv.config();
 
 // calling port

@@ -12,14 +12,9 @@ export const jwtAuthMiddleware = (req, res, next) => {
     return next();
   }
 
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
-    return res.status(401).json({ message: "No token provided" });
-  }
-
-  const token = authHeader.split(" ")[1];
+  const token = req.cookies.access_token;
   if (!token) {
-    return res.status(401).json({ message: "Invalid token format" });
+    return res.status(401).json({ message: "No token provided" });
   }
 
   try {

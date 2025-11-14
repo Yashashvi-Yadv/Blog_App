@@ -1,10 +1,31 @@
-export const ApiServiceRoute = [
-  {
-    prefix: "/api/auth/",
-    target: process.env.USER_AUTH_URL,
-  },
-  {
-    prefix: "/blogs",
-    target: "http://localhost:5002",
-  },
-];
+import { createProxyMiddleware } from "http-proxy-middleware";
+
+export default function proxyRoutes(app) {
+  // ✅ AUTH SERVICE
+  app.use(
+    "/api/auth",
+    createProxyMiddleware({
+      target: "http://localhost:8001",
+      changeOrigin: true,
+      pathRewrite: { "^/api/auth": "" },
+      onProxyReq: (proxyReq, req) => {
+        console.log(
+          "🔁 [Gateway] → Auth Service:",
+          req.method,
+          req.originalUrl
+        );
+      },
+    })
+  );
+  app.use(
+    "/api/blog",
+    createProxyMiddleware({
+      target: "http://localhost:8002",
+      changeOrigin: true,
+      pathRewrite: { "^/api/blog": "" },
+      onProxyReq: (proxyReq, req) => {
+        console.log("gateway __>>> Blog Service", req.method, req.originalUrl);
+      },
+    })
+  );
+}
