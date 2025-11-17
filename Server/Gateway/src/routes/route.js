@@ -28,4 +28,19 @@ export default function proxyRoutes(app) {
       },
     })
   );
+  app.use(
+    "/api/request",
+    createProxyMiddleware({
+      target: "http://localhost:8004",
+      changeOrigin: true,
+      pathRewrite: { "^/api/request": "" },
+      onProxyReq: (proxyReq, req) => {
+        console.log(
+          "gateway __>>> Request || Follow  Service",
+          req.method,
+          req.originalUrl
+        );
+      },
+    })
+  );
 }

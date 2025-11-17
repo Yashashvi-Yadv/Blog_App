@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import { errorMiddleware } from "./api/middlewares/err.mid.js";
 import { ConnectDb } from "./config/db.js";
 import authroute from "./api/route/auth.route.js";
+import { startkafka } from "./loader/essential.js";
 const app = express();
 
 app.use(
@@ -28,6 +29,7 @@ app.use((err, req, res, next) => {
 });
 
 ConnectDb();
+startkafka();
 app.get("/", (req, res) => {
   console.log("hey");
   console.log(req.ip);

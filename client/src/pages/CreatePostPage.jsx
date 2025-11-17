@@ -26,10 +26,10 @@ export default function CreatePostPage() {
       const res = await axiosInstance.post("/api/blog/create", data);
 
       if (res.data.success) {
-        alert("✅ Blog created successfully!");
+        alert(res.data.message);
         navigate("/dashboard");
       } else {
-        alert("Failed to create post");
+        alert(res.data.message);
       }
     } catch (err) {
       console.error("Error creating blog:", err);

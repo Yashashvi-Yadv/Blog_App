@@ -11,7 +11,7 @@ export default function DashboardPage() {
   useEffect(() => {
     const fetchFeed = async () => {
       try {
-        const res = await axiosInstance.get("/api/blog/feed");
+        const res = await axiosInstance.get("");
         if (res.data.success) setBlogs(res.data.blogs);
       } catch (err) {
         console.error("Error fetching feed:", err);

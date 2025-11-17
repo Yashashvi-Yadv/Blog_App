@@ -30,6 +30,9 @@ class AuthService {
       throw new Error("Logout failed");
     }
   }
+  async getbyemail(email) {
+    return await UserRepository.findbyemail(email);
+  }
 
   async handleuser(data) {
     const { id } = data;

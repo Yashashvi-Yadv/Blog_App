@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
     const fetchUser = async () => {
       try {
         const res = await axiosInstance.get("/api/auth/me");
-        console.log(res.data);
+        console.log(res);
         if (res.data.success) {
           setUser(res.data.user);
           setIsLogged(true);

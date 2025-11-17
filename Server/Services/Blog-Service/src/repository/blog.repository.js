@@ -11,7 +11,7 @@ class BlogRepository {
     return await Blog.findOneAndDelete({ userid: data.id, _id: data._id });
   }
   async PostwithId(data) {
-    return await Blog.findOne({ userid: data.id, _id: data._id });
+    return await Blog.findById(data);
   }
   async UpdatePost(data) {
     return await Blog.updateOne(
@@ -21,6 +21,9 @@ class BlogRepository {
         content: data.content,
       }
     );
+  }
+  async ShowAllPost(data) {
+    return await Blog.countDocuments({ userid: data });
   }
 }
 export default new BlogRepository();

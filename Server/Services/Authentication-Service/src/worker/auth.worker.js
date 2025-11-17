@@ -1,6 +1,8 @@
 import kafkaConsumer from "../events/Consumer/kafka.consumer.js";
 
-(async () => {
-  await kafkaConsumer.init();
-  console.log("🚀 Blog Worker Started");
-})();
+export const startkafkaconsumer = () => {
+  (async () => {
+    await kafkaConsumer.init();
+    console.log("🚀 Blog Worker Started");
+  })();
+};

@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import { ConnectDb } from "./config/db.js";
 import { authmid } from "./api/middlewares/authmid.js";
 import blog_route from "./api/routes/blog.route.js";
+import { loader } from "./loaders/Essentials.loader.js";
 const app = express();
 
 app.use(
@@ -28,6 +29,7 @@ app.use((err, req, res, next) => {
 });
 
 ConnectDb();
+loader();
 app.get("/", (req, res) => {
   console.log("hey");
   console.log(req.ip);

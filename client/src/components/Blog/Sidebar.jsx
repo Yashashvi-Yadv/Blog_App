@@ -8,6 +8,8 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
+  UserPlus,
+  Bell,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -70,6 +72,9 @@ export default function Sidebar({ open, toggleSidebar }) {
                 {user.name}
               </h3>
               <p className="text-xs text-gray-500 truncate">{user.email}</p>
+              <p className="text-xs text-gray-500 truncate">
+                Total Posts: {user.totalPosts}
+              </p>
             </div>
           </div>
         )}
@@ -101,6 +106,24 @@ export default function Sidebar({ open, toggleSidebar }) {
           >
             <BookOpen size={18} />
             {!collapsed && <span>My Blogs</span>}
+          </Link>
+
+          <Link
+            onClick={toggleSidebar}
+            to="/dashboard/follow"
+            className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 transition"
+          >
+            <UserPlus size={18} />
+            {!collapsed && <span>Follow </span>}
+          </Link>
+
+          <Link
+            onClick={toggleSidebar}
+            to="/dashboard/notification"
+            className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 transition"
+          >
+            <Bell size={18} />
+            {!collapsed && <span>Follow </span>}
           </Link>
         </nav>
 

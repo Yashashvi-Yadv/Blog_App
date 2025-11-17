@@ -13,5 +13,8 @@ class UserRepository {
   async createuser(data) {
     return await User.create(data);
   }
+  async userbyemail(email) {
+    return await User.findOne({ email });
+  }
 }
 export default new UserRepository();

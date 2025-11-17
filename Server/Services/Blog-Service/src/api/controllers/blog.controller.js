@@ -1,7 +1,8 @@
 import BlogService from "../service/Blog.Service.js";
+import KafkaServiceBlog from "../service/Kafka.service.js";
+
 export const creatPost = async (req, res) => {
   try {
-    console.log(req.user.id, req.body);
     const data = {
       userid: req.user.id,
       title: req.body.title,
@@ -15,17 +16,21 @@ export const creatPost = async (req, res) => {
     }
     const post = await BlogService.CreatePost(data);
     if (post) {
+      let count = await BlogService.showpostcount(req.user.id);
+      await KafkaServiceBlog.sendcreateblog(count, req.user.id);
       return res.json({
         success: true,
         message: "post created",
         post,
       });
     }
+
     return res.json({
       success: false,
       message: "something went wrong",
     });
   } catch (err) {
+    console.log(err);
     res.json({
       success: false,
       message: "internal server Error",
@@ -53,6 +58,8 @@ export const ShowPost = async (req, res, next) => {
   }
 };
 
+//...............................................................
+
 export const DeletePost = async (req, res, next) => {
   try {
     const id = req.user.id;
@@ -61,6 +68,8 @@ export const DeletePost = async (req, res, next) => {
     const data = { id, _id };
     const user = await BlogService.DeletePost(data);
     if (user) {
+      let count = await BlogService.showpostcount(req.user.id);
+      await KafkaServiceBlog.senddeleteblog(count, req.params.id);
       return res.json({
         success: true,
         message: "post deleted",
@@ -74,13 +83,11 @@ export const DeletePost = async (req, res, next) => {
     next(error);
   }
 };
+
+//...............................................................
 export const postwithid = async (req, res, next) => {
   try {
-    const id = req.user.id;
-    const _id = req.params.id;
-    const data = { id, _id };
-
-    const blog = await BlogService.showpostwithid(data);
+    const blog = await BlogService.showpostwithid(req.params.id);
     if (blog) {
       return res.json({ success: true, blog });
     }

@@ -18,6 +18,9 @@ class Blog_Service {
   async UpdatePost(data) {
     return await blogRepository.UpdatePost(data);
   }
+  async showpostcount(data) {
+    return await blogRepository.ShowAllPost(data);
+  }
 }
 
 export default new Blog_Service();

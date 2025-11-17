@@ -1,5 +1,6 @@
 import { kafka } from "../../config/kafka.js";
 import BlogRepo from "../../repositories/blog.repository.js";
+
 class KafkaConsumer {
   consumer;
 
@@ -11,7 +12,7 @@ class KafkaConsumer {
     await this.consumer.connect();
     console.log("Kafka Consumer Connected");
 
-    // Subscribe to events from Blog service
+    // Subscribe to blog events
     await this.consumer.subscribe({ topic: "blog_created" });
     await this.consumer.subscribe({ topic: "blog_deleted" });
 
@@ -22,23 +23,46 @@ class KafkaConsumer {
     await this.consumer.run({
       eachMessage: async ({ topic, message }) => {
         const eventData = JSON.parse(message.value.toString());
-        console.log(`Received event from ${topic}:`, eventData);
+
+        console.log("=====================================");
 
         try {
           switch (topic) {
             case "blog_created":
-              await BlogRepo.handlecreated(eventData);
+              console.log("➡ Handling blog_created event...");
+
+              const { count, id } = eventData;
+
+              if (!id) {
+                console.log("❌ ERROR: eventData.id is missing!");
+                return;
+              }
+
+              const res = await BlogRepo.handlecreated(count, id);
+
+              if (res) {
+                console.log("✅ Blog count updated successfully");
+              }
               break;
 
             case "blog_deleted":
-              await BlogRepo.handledeleted(eventData);
+              console.log("➡ Handling blog_deleted event...");
+
+              const deleted = await BlogRepo.handledeleted(eventData);
+
+              if (deleted) {
+                console.log("🗑 Blog deleted event processed");
+              }
               break;
+
             default:
-              console.log("Unknown topic:", topic);
+              console.log("❓ Unknown topic received:", topic);
           }
         } catch (error) {
-          console.error(" Error handling event:", error);
+          console.error("❌ Error handling event:", error);
         }
+
+        console.log("=====================================");
       },
     });
   }

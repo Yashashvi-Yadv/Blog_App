@@ -29,7 +29,6 @@ export const register = async (req, res) => {
 export const User = async (req, res, next) => {
   try {
     const user = await AuthService.handleuser(req.user);
-
     if (user) {
       return res.json({
         success: true,
@@ -49,6 +48,29 @@ export const logout = async (req, res, next) => {
   try {
     await AuthService.handlelogout();
     return res.clearCookie("access_token");
+  } catch (error) {
+    res.json({
+      success: false,
+      message: "internal server Error",
+    });
+  }
+};
+
+export const getuserbyemail = async (req, res) => {
+  try {
+    const email = req.params.email;
+    const user = await AuthService.getbyemail(email);
+    if (user) {
+      return res.json({
+        user: user,
+        success: true,
+        message: "user found",
+      });
+    }
+    return res.json({
+      success: false,
+      message: "user not found",
+    });
   } catch (error) {
     res.json({
       success: false,

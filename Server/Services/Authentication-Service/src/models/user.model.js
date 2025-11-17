@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-userSchema.index({ email: 1 });
+userSchema.index({ email: 1 }); 
 userSchema.index({ googleId: 1 });
 
 export default mongoose.model("User", userSchema);

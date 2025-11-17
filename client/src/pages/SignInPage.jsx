@@ -29,8 +29,6 @@ export default function SignInPage() {
 
       const res = await axiosInstance.post("/api/auth/register", data);
 
-      console.log("Backend response:", res.data);
-
       if (res.data.success) {
         login(res.data.users); // ✅ your backend sends `users`
         setTimeout(() => navigate("/dashboard"), 0); // ✅ navigate after state update
