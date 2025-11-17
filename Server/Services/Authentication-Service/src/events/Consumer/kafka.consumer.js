@@ -47,6 +47,7 @@ class KafkaConsumer {
 
             case "blog_deleted":
               console.log("➡ Handling blog_deleted event...");
+              console.log(eventData);
 
               const deleted = await BlogRepo.handledeleted(eventData);
 

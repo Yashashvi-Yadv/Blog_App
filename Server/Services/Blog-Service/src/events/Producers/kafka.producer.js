@@ -31,6 +31,7 @@ class KafkaProducer {
 
   async kafkablogdelete(count, id) {
     const data = { count, id };
+    console.log(count, id, data);
     if (!this.isConnected) await this.initkafka();
 
     return producer.send({

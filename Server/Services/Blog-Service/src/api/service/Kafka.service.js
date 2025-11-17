@@ -5,8 +5,8 @@ class KafkaServiceBlog {
     await kafkaProducer.kafkablogcreate(count, id);
   }
 
-  async senddeleteblog(data) {
-    await kafkaProducer.kafkablogdelete(data);
+  async senddeleteblog(count, id) {
+    await kafkaProducer.kafkablogdelete(count, id);
   }
 }
 export default new KafkaServiceBlog();
