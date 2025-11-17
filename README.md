@@ -171,7 +171,7 @@ curl -X POST http://localhost:8001/api/auth/register \
   -d '{"googleId":"g123","email":"user@example.com","name":"User"}'
 ```
 
-Adjust the host/port according to each service's `PORT` env var.
+Adjust's the host/port according to each service's `PORT` env var.
 
 ## Development Notes & Conventions
 
